@@ -27,6 +27,10 @@ export default function SimpleCard() {
     setDetails({ ...details, [name]: value })
   }
 
+  const handleClick = () => {
+    console.log(details);
+  }
+
   return (
     <Flex
       className={styles.main}
@@ -64,6 +68,7 @@ export default function SimpleCard() {
                 <Link color={'blue.400'}>Forgot password?</Link>
               </Stack>
               <Button
+                onClick={handleClick}
                 bg={'gray'}
                 color={'white'}
                 _hover={{
