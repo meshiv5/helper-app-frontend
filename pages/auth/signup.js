@@ -16,18 +16,20 @@ import { useState } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import styles from '../../styles/Signup/signup.module.css'
 import Link from 'next/link';
+import { BsGoogle } from 'react-icons/bs'
+
 
 export default function SignupCard() {
     const [showPassword, setShowPassword] = useState(false);
     const [details, setDetails] = useState({
-          username:'',
-          email:'',
-          password:''    
+        username: '',
+        email: '',
+        password: ''
     })
 
     const handleChange = (e) => {
-        const {value, name} = e.target;
-        setDetails({...details, [name]: value}) 
+        const { value, name } = e.target;
+        setDetails({ ...details, [name]: value })
     }
 
     const handleClick = () => {
@@ -40,7 +42,7 @@ export default function SignupCard() {
             minH={'100vh'}
             align={'center'}
             justify={'center'}
-            >
+        >
             <Stack className={styles.signup} spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
                 <Stack align={'center'}>
                     <Heading fontSize={'4xl'} textAlign={'center'}>
@@ -62,12 +64,12 @@ export default function SignupCard() {
                         </FormControl>
                         <FormControl id="email" isRequired>
                             <FormLabel>Email address</FormLabel>
-                            <Input name='email' onChange={handleChange}  type="email" />
+                            <Input name='email' onChange={handleChange} type="email" />
                         </FormControl>
                         <FormControl id="password" isRequired>
                             <FormLabel>Password</FormLabel>
                             <InputGroup>
-                                <Input name='password' onChange={handleChange}  type={showPassword ? 'text' : 'password'} />
+                                <Input name='password' onChange={handleChange} type={showPassword ? 'text' : 'password'} />
                                 <InputRightElement h={'full'}>
                                     <Button
                                         variant={'ghost'}
@@ -90,6 +92,9 @@ export default function SignupCard() {
                                     bg: 'black',
                                 }}>
                                 Sign up
+                            </Button>
+                            <Button bgColor={'red'} color={'white'} leftIcon={<BsGoogle />}>
+                                Google
                             </Button>
                         </Stack>
                         <Stack pt={6}>
