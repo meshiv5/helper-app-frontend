@@ -19,7 +19,7 @@ import Link from 'next/link';
 import { BsGoogle } from 'react-icons/bs'
 import axios from 'axios'
 import { useToast } from '@chakra-ui/react'
-
+import { useRouter } from 'next/router';
 
 export default function SignupCard() {
     const [showPassword, setShowPassword] = useState(false);
@@ -28,7 +28,9 @@ export default function SignupCard() {
         email: '',
         password: ''
     })
+    const router = useRouter()
     const toast = useToast()
+
 
     const handleChange = (e) => {
         const { value, name } = e.target;
@@ -47,6 +49,7 @@ export default function SignupCard() {
                     isClosable: true,
                 })
             }
+            router.push('/auth/login')
         } catch (e) {
             toast({
                 title: 'Error.',
@@ -58,6 +61,8 @@ export default function SignupCard() {
         }
 
     }
+
+
 
     return (
         <Flex

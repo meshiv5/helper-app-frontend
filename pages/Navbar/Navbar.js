@@ -4,7 +4,7 @@ import {
   Flex,
   Avatar,
   HStack,
-  Link,
+  // Link,
   IconButton,
   Button,
   Menu,
@@ -17,10 +17,12 @@ import {
   Stack,
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, AddIcon, ChevronDownIcon } from '@chakra-ui/icons';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const Links = ['Dashboard', 'Projects', 'Team'];
 
-const NavLink = ({children}) => (
+const NavLink = ({ children }) => (
 
   <Link
     px={2}
@@ -35,15 +37,20 @@ const NavLink = ({children}) => (
   </Link>
 );
 
-export default function withAction() {
+export default function WithAction() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [useridentity,setUserIdentity]=useState('Buyer');
+  const [useridentity, setUserIdentity] = useState('Buyer');
+  const {pathname} = useRouter()
   function UserToggle() {
-    if(useridentity=='Buyer'){
-        setUserIdentity('Seller');
-    }else{
-        setUserIdentity('Buyer')
+    if (useridentity == 'Buyer') {
+      setUserIdentity('Seller');
+    } else {
+      setUserIdentity('Buyer')
     }
+  }
+
+  if(pathname === '/auth/login' || pathname === '/auth/signup'){
+    return <></>
   }
   return (
     <>
@@ -68,7 +75,7 @@ export default function withAction() {
             </HStack>
           </HStack>
           <Flex alignItems={'center'}>
-          <Button
+            <Button
               variant={'solid'}
               colorScheme={'teal'}
               size={'sm'}
@@ -76,14 +83,16 @@ export default function withAction() {
               onClick={UserToggle}>
               {useridentity}
             </Button>
-            <Button
-              variant={'solid'}
-              colorScheme={'teal'}
-              size={'sm'}
-              mr={4}
-              leftIcon={<AddIcon />}>
-              Signup
-            </Button>
+            <Link href='/auth/signup'>
+              <Button
+                variant={'solid'}
+                colorScheme={'teal'}
+                size={'sm'}
+                mr={4}
+                leftIcon={<AddIcon />}>
+                Signup
+              </Button>
+            </Link>
             <Menu>
               <MenuButton
                 as={Button}
@@ -100,14 +109,14 @@ export default function withAction() {
               </MenuButton>
               <MenuList>
                 <MenuItem>
-                {/* <MenuItem>from post to service</MenuItem> */}
+                  {/* <MenuItem>from post to service</MenuItem> */}
                 </MenuItem>
                 <MenuItem>Wallet</MenuItem>
                 <MenuItem>notification</MenuItem>
-    {useridentity=="Buyer"?<div><MenuItem>Service List and Contact</MenuItem>
-    <MenuItem>Search and filter</MenuItem></div>
-    :<MenuItem w={'auto'} >from Post to service</MenuItem>}
-            <MenuItem>Settings</MenuItem>
+                {useridentity == "Buyer" ? <div><MenuItem>Service List and Contact</MenuItem>
+                  <MenuItem>Search and filter</MenuItem></div>
+                  : <MenuItem w={'auto'} >from Post to service</MenuItem>}
+                <MenuItem>Settings</MenuItem>
               </MenuList>
             </Menu>
           </Flex>
@@ -122,7 +131,6 @@ export default function withAction() {
           </Box>
         ) : null}
       </Box>
-      <Box p={4}>Main Content Here</Box>
     </>
   );
 }
