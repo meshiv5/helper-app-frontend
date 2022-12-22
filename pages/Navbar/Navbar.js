@@ -19,6 +19,8 @@ import {
 import { HamburgerIcon, CloseIcon, AddIcon, ChevronDownIcon } from '@chakra-ui/icons';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
+import { LOGOUT } from '../../redux/authReducer/auth.actionTypes';
 
 const Links = ['Dashboard', 'Projects', 'Team'];
 
@@ -40,7 +42,9 @@ const NavLink = ({ children }) => (
 export default function WithAction() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [useridentity, setUserIdentity] = useState('Buyer');
-  const {pathname} = useRouter()
+  const { isAuth } = useSelector(s => s.auth)
+  const dispatch = useDispatch()
+  const { pathname } = useRouter()
   function UserToggle() {
     if (useridentity == 'Buyer') {
       setUserIdentity('Seller');
@@ -49,7 +53,11 @@ export default function WithAction() {
     }
   }
 
-  if(pathname === '/auth/login' || pathname === '/auth/signup'){
+  const handleClick = () => {
+       dispatch({type: LOGOUT})
+  }
+
+  if (pathname === '/auth/login' || pathname === '/auth/signup') {
     return <></>
   }
   return (
@@ -83,16 +91,6 @@ export default function WithAction() {
               onClick={UserToggle}>
               {useridentity}
             </Button>
-            <Link href='/auth/signup'>
-              <Button
-                variant={'solid'}
-                colorScheme={'teal'}
-                size={'sm'}
-                mr={4}
-                leftIcon={<AddIcon />}>
-                Signup
-              </Button>
-            </Link>
             <Menu>
               <MenuButton
                 as={Button}
@@ -115,8 +113,9 @@ export default function WithAction() {
                 <MenuItem>notification</MenuItem>
                 {useridentity == "Buyer" ? <div><MenuItem>Service List and Contact</MenuItem>
                   <MenuItem>Search and filter</MenuItem></div>
-                  : <MenuItem w={'auto'} >from Post to service</MenuItem>}
+                  : <Link href='/serviceform'><MenuItem w={'auto'} >form Post to service</MenuItem></Link>}
                 <MenuItem>Settings</MenuItem>
+                <MenuItem onClick={handleClick}>{isAuth ? 'Logout' : 'Login'}</MenuItem>
               </MenuList>
             </Menu>
           </Flex>
