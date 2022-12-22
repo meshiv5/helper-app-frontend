@@ -1,43 +1,65 @@
 import { useEffect, useState } from "react";
-import Pusher from "pusher-js";
 import axios from "axios";
 import { Box, Button, Divider, Flex, FormControl, FormLabel, Input, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import Header from "../../components/chat/Header";
 import Footer from "../../components/chat/Footer";
 import Messages from "../../components/chat/Messages";
-
-export default function SingleRoom({ sender }) {
+import jwt from "jsonwebtoken";
+import { io } from "socket.io-client";
+let socket;
+let sender;
+let roomID;
+export default function SingleRoom() {
   const router = useRouter();
   const [chats, setChats] = useState([]);
   const [messageToSend, setMessageToSend] = useState("");
-  const { id: roomName } = router.query;
+  const [receiver, setReceiver] = useState({ name: "" });
 
+  const socketInitializer = () => {
+    socket = io(process.env.server);
+    socket.on("connect", () => {
+      console.log("connected");
+    });
+    socket.emit("join-room", roomID + sender?.id, sender?.id + roomID);
+    console.log("joined Rooms ", roomID + sender?.id, sender?.id + roomID);
+    socket.on("receive-msg", (msg, email) => {
+      setChats((oldChats) => [...oldChats, { from: email, message: msg }]);
+    });
+  };
   useEffect(() => {
-    Pusher.logToConsole = true;
-    const pusher = new Pusher(process.env.key, {
-      cluster: process.env.cluster,
+    const userData = jwt.decode(localStorage.getItem("helperApp"));
+    sender = userData;
+    const windowURL = window.location.href;
+    roomID = windowURL.split("/")[windowURL.split("/").length - 1];
+    getOtherUserData(localStorage.getItem("helperApp"), roomID).then((data) => {
+      data
+        .json()
+        .then((res) => {
+          console.log("my details :- " + JSON.stringify(sender));
+          if (res.status == false) router.push("/");
+          else setReceiver({ ...res.data });
+        })
+        .catch((err) => {
+          router.push("/");
+        });
     });
-    const channel = pusher.subscribe(roomName);
-    channel.bind("chat-event", function (data) {
-      setChats((prevState) => [...prevState, { from: data.sender, message: data.message }]);
-    });
-    return () => {
-      pusher.unsubscribe(roomName);
-    };
+    socketInitializer();
+    return () => socket.disconnect();
   }, []);
 
   const handleSendButton = async (e) => {
     e.preventDefault();
-    await axios.post("/api/pusher", { channel: roomName, message: messageToSend, sender });
+    socket.emit("send-msg", messageToSend, sender.email, roomID + sender.id, sender.id + roomID);
+    setChats((oldChats) => [...oldChats, { from: sender.email, message: messageToSend }]);
   };
 
   return (
-    <Flex w="100%" h="100vh" justify="center" align="center">
-      <Flex w="40%" h="90%" flexDir="column">
-        <Header />
+    <Flex w="100%" h="88vh" justify="center" align="center" mt={10}>
+      <Flex w={["90%", "90%", "90%", "96%"]} h="100%" flexDir="column">
+        <Header name={receiver.name} isOnline={true} />
         <Divider />
-        <Messages messages={chats} />
+        <Messages messages={chats} sender={sender} />
         <Divider />
         <Footer inputMessage={messageToSend} setInputMessage={setMessageToSend} handleSendMessage={handleSendButton} />
       </Flex>
@@ -45,10 +67,11 @@ export default function SingleRoom({ sender }) {
   );
 }
 
-export function getServerSideProps() {
-  return {
-    props: {
-      sender: "me",
+function getOtherUserData(token, id) {
+  return fetch(`http://localhost:8000/getOtherData/${id}`, {
+    method: "GET",
+    headers: {
+      authorization: token,
     },
-  };
+  });
 }

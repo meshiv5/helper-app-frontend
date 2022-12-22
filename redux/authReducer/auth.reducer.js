@@ -1,28 +1,25 @@
 import { LOGOUT } from "./auth.actionTypes";
 
 let value;
-if (typeof window !== 'undefined') {
-    value = localStorage.getItem('helperApp')
+if (typeof window !== "undefined") {
+  value = localStorage.getItem("helperApp");
 }
 
 const initState = {
-    isAuth: !!value,
-    token: ''
-}
+  isAuth: value || false,
+  token: "",
+};
 
 export const authReducer = (state = initState, action) => {
-    switch (action.type) {
+  switch (action.type) {
+    case LOGOUT:
+      localStorage.removeItem("helperApp");
+      return {
+        ...state,
+        isAuth: false,
+      };
 
-        case LOGOUT:
-            localStorage.removeItem('helperApp')
-            return {
-                ...state,
-                isAuth: false,
-            }
-
-
-        default:
-            return state
-    }
-
-}
+    default:
+      return state;
+  }
+};

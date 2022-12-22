@@ -8,17 +8,7 @@ export default function LandingPage() {
   const { isAuth } = useSelector(s => s.auth)
   const [logstate, setLogstate] = useState('login')
 
-  useEffect(() => {
-    if(isAuth)
-    setLogstate('logout')
-  }, []);
-
-  const handleLogout = () => {
-    dispatch({ type: LOGOUT })
-    setLogstate('login')
-  }
-
-  console.log(logstate);
+  
 
   return (
     <div>
