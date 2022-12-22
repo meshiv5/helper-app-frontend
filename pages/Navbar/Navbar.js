@@ -42,7 +42,6 @@ const NavLink = ({ children }) => (
 export default function WithAction() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [useridentity, setUserIdentity] = useState("Buyer");
-  const { isAuth } = useSelector((s) => s.auth);
   const dispatch = useDispatch();
   const router = useRouter();
   function UserToggle() {
@@ -52,6 +51,8 @@ export default function WithAction() {
     } else {
       setUserIdentity("Buyer");
       localStorage.setItem("mode", "Buyer");
+      router.push('/')
+
     }
   }
   const handleLogout = () => {
@@ -60,6 +61,8 @@ export default function WithAction() {
   };
   useEffect(() => {
     if (!localStorage.getItem("mode")) localStorage.setItem("mode", "Buyer");
+    else
+      setUserIdentity(localStorage.getItem("mode"))
   }, []);
   if (router.pathname === "/auth/login" || router.pathname === "/auth/signup") {
     return <></>;
@@ -106,9 +109,10 @@ export default function WithAction() {
                     <MenuItem>Search and filter</MenuItem>
                   </div>
                 ) : (
-                  <Link href="/serviceform">
-                    <MenuItem w={"auto"}>form Post to service</MenuItem>
-                  </Link>
+                  <div>
+                    <Link href="/serviceform"><MenuItem w={"100%"}>Post Services</MenuItem></Link>
+                    <Link href='/Seller/SellerProducts'><MenuItem>Services</MenuItem></Link>
+                  </div>
                 )}
                 <MenuItem>Settings</MenuItem>
                 <MenuItem onClick={handleLogout}>{"Logout"}</MenuItem>
