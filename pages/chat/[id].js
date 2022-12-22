@@ -23,8 +23,8 @@ export default function SingleRoom() {
     });
     socket.emit("join-room", roomID + sender?.id, sender?.id + roomID);
     console.log("joined Rooms ", roomID + sender?.id, sender?.id + roomID);
-    socket.on("receive-msg", (msg, email) => {
-      setChats((oldChats) => [...oldChats, { from: email, message: msg }]);
+    socket.on("receive-msg", (msg, senderEmail, receiverEmail) => {
+      setChats((oldChats) => [...oldChats, { from: senderEmail, to: receiverEmail, message: msg }]);
     });
   };
   useEffect(() => {
@@ -44,14 +44,19 @@ export default function SingleRoom() {
           router.push("/");
         });
     });
+
+    getMessages(localStorage.getItem("helperApp"), roomID + sender?.id).then((data) => {
+      data.json().then((result) => {
+        setChats((oldChats) => [...oldChats, ...result.data.messages]);
+      });
+    });
     socketInitializer();
     return () => socket.disconnect();
   }, []);
 
   const handleSendButton = async (e) => {
-
-    socket.emit("send-msg", messageToSend, sender.email, roomID + sender.id, sender.id + roomID);
-    setChats((oldChats) => [...oldChats, { from: sender.email, message: messageToSend }]);
+    socket.emit("send-msg", messageToSend, sender.email, receiver.email, roomID + sender.id, sender.id + roomID);
+    setChats((oldChats) => [...oldChats, { from: sender.email, to: receiver.id, message: messageToSend }]);
     setMessageToSend("");
   };
 
@@ -70,6 +75,15 @@ export default function SingleRoom() {
 
 function getOtherUserData(token, id) {
   return fetch(`http://localhost:8000/getOtherData/${id}`, {
+    method: "GET",
+    headers: {
+      authorization: token,
+    },
+  });
+}
+
+function getMessages(token, roomID) {
+  return fetch(`http://localhost:8000/getMessages/${roomID}`, {
     method: "GET",
     headers: {
       authorization: token,
