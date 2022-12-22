@@ -10,6 +10,8 @@ const Singlecard = () => {
   direction={{ base: 'column', sm: 'row' }}
   overflow='hidden'
   variant='outline'
+  ml="10%"
+  mt={'3%'}
 ><Image
     objectFit='cover'
     maxW={{ base: '100%', sm: '200px' }}
