@@ -49,9 +49,10 @@ export default function SingleRoom() {
   }, []);
 
   const handleSendButton = async (e) => {
-    e.preventDefault();
+
     socket.emit("send-msg", messageToSend, sender.email, roomID + sender.id, sender.id + roomID);
     setChats((oldChats) => [...oldChats, { from: sender.email, message: messageToSend }]);
+    setMessageToSend("");
   };
 
   return (
