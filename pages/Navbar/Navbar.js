@@ -41,7 +41,7 @@ const NavLink = ({ children }) => (
 
 export default function WithAction() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [useridentity, setUserIdentity] = useState("Buyer");
+  const [useridentity, setUserIdentity] = useState('Buyer');
   const { isAuth } = useSelector((s) => s.auth);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -60,6 +60,8 @@ export default function WithAction() {
   };
   useEffect(() => {
     if (!localStorage.getItem("mode")) localStorage.setItem("mode", "Buyer");
+    else
+     setUserIdentity(localStorage.getItem("mode"))
   }, []);
   if (router.pathname === "/auth/login" || router.pathname === "/auth/signup") {
     return <></>;
