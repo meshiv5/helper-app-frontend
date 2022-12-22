@@ -5,21 +5,20 @@ import {
   FormControl,
   FormLabel,
   Heading,
-  IconButton,
   Input,
   InputGroup,
   InputLeftElement,
-  Link,
+  Select,
   Stack,
   Textarea,
-  Tooltip,
-  useClipboard,
   useColorModeValue,
+  useToast,
   VStack,
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
-import { BsGithub, BsLinkedin, BsPerson, BsTwitter } from 'react-icons/bs';
-import { MdEmail, MdOutlineEmail, MdTitle, MdPriceChange } from 'react-icons/md';
+import { MdTitle, MdPriceChange } from 'react-icons/md';
+import { decode } from 'jsonwebtoken'
+import axios from 'axios';
 
 const confetti = {
   light: {
@@ -39,18 +38,49 @@ const CONFETTI_DARK = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2
 export default function ContactFormWithSocialButtons() {
 
   const [details, setDetails] = useState({
-    title: '',
-    price: '',
-    task: ''
+    task: '',
+    category: '',
+    description: '',
+    pay: '',
+    user: ''
   })
+  const toast = useToast()
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setDetails({ ...details, [name]: value })
   }
 
-  const handleClick = () => {
-    console.log(details);
+  const handleClick = async () => {
+    try {
+      let { id } = await decode(localStorage.getItem('helperApp'));
+      setDetails({ ...details, user: id })
+      console.log(details);
+      let res = await axios.post('http://localhost:8000/service', { ...details, user: id }, {
+        headers: {
+          authorization: localStorage.getItem('helperApp')
+        }
+      })
+      if (res.data === 'Service created') {
+        toast({
+          title: 'Success.',
+          description: "Service has been posted.",
+          status: 'success',
+          duration: 4000,
+          isClosable: true,
+        })
+      }
+      setDetails({
+        task: '',
+        category: '',
+        description: '',
+        pay: '',
+        user: ''
+      })
+    } catch (e) {
+      console.log(e.message);
+    }
+
   }
 
   return (
@@ -89,12 +119,32 @@ export default function ContactFormWithSocialButtons() {
                 shadow="base">
                 <VStack spacing={5}>
                   <FormControl isRequired>
-                    <FormLabel>Title</FormLabel>
+                    <FormLabel>Task</FormLabel>
 
                     <InputGroup>
                       <InputLeftElement children={<MdTitle />} />
-                      <Input type="text" name="title" onChange={handleChange} placeholder="Title" />
+                      <Input type="text" name="task" value={details.task} onChange={handleChange} placeholder="Title" />
                     </InputGroup>
+                  </FormControl>
+
+                  <FormControl isRequired>
+                    <FormLabel>Category</FormLabel>
+
+                    <Select name='category' value={details.category} onChange={handleChange} placeholder='Select option'>
+                      <option value='management'>Management</option>
+                      <option value='computer'>Computer</option>
+                      <option value='design & arts'>Design & Arts</option>
+                      <option value='construction'>Construction</option>
+                      <option value='engineering'>Engineering</option>
+                      <option value='languages'>Languages</option>
+                      <option value='legal service'>Legal service</option>
+                      <option value='marketing'>Marketing</option>
+                      <option value='social work'>Social work</option>
+                      <option value='sports'>Sports</option>
+                      <option value='transport'>Transport</option>
+                      <option value='retail & customer'>Retail & Customer</option>
+                      <option value='other'>Others</option>
+                    </Select>
                   </FormControl>
 
                   <FormControl isRequired>
@@ -103,8 +153,9 @@ export default function ContactFormWithSocialButtons() {
                     <InputGroup>
                       <InputLeftElement children={<MdPriceChange />} />
                       <Input
+                        value={details.pay}
                         type="number"
-                        name="price"
+                        name="pay"
                         placeholder="Price"
                         onChange={handleChange}
                       />
@@ -112,11 +163,12 @@ export default function ContactFormWithSocialButtons() {
                   </FormControl>
 
                   <FormControl isRequired>
-                    <FormLabel>Task</FormLabel>
+                    <FormLabel>Description</FormLabel>
 
                     <Textarea
+                      value={details.description}
                       onChange={handleChange}
-                      name="task"
+                      name="description"
                       placeholder="Your Task"
                       rows={6}
                       resize="none"
@@ -124,14 +176,14 @@ export default function ContactFormWithSocialButtons() {
                   </FormControl>
 
                   <Button
-                  onClick={handleClick}
+                    onClick={handleClick}
                     colorScheme="blue"
                     bg="blue.400"
                     color="white"
                     _hover={{
                       bg: 'blue.500',
                     }}
-                    >
+                  >
                     Post Service
                   </Button>
                 </VStack>
