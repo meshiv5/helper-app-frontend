@@ -74,7 +74,7 @@ export default function SingleRoom() {
 }
 
 function getOtherUserData(token, id) {
-  return fetch(`http://localhost:8000/getOtherData/${id}`, {
+  return fetch(`${process.env.server}/getOtherData/${id}`, {
     method: "GET",
     headers: {
       authorization: token,
@@ -83,7 +83,7 @@ function getOtherUserData(token, id) {
 }
 
 function getMessages(token, roomID) {
-  return fetch(`http://localhost:8000/getMessages/${roomID}`, {
+  return fetch(`${process.env.server}/getMessages/${roomID}`, {
     method: "GET",
     headers: {
       authorization: token,
