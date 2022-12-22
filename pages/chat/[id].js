@@ -44,18 +44,13 @@ export default function SingleRoom() {
           router.push("/");
         });
     });
-
+    socketInitializer();
     getMessages(localStorage.getItem("helperApp"), roomID + sender?.id).then((data) => {
       data.json().then((result) => {
         if (result && result.data) setChats((oldChats) => [...oldChats, ...result.data.messages]);
       });
     });
-    getMessages(localStorage.getItem("helperApp"), sender?.id + roomID).then((data) => {
-      data.json().then((result) => {
-        if (result && result.data) setChats((oldChats) => [...oldChats, ...result.data.messages]);
-      });
-    });
-    socketInitializer();
+
     return () => socket.disconnect();
   }, []);
 
