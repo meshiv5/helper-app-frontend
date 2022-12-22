@@ -14,6 +14,9 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import styles from '../../styles/Login/login.module.css'
+import axios from 'axios'
+import { useToast } from '@chakra-ui/react'
+
 
 export default function SimpleCard() {
 
@@ -21,14 +24,35 @@ export default function SimpleCard() {
     email: '',
     password: ''
   })
+  const toast = useToast()
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setDetails({ ...details, [name]: value })
   }
 
-  const handleClick = () => {
-    console.log(details);
+  const handleClick = async () => {
+    try {
+      let res = await axios.post('http://localhost:3000/api/auth/login', details);
+      if (res.data.message === 'Login success') {
+        localStorage.setItem('helperApp', res.data.token)
+        toast({
+          title: 'Success.',
+          description: "Login Successful.",
+          status: 'success',
+          duration: 4000,
+          isClosable: true,
+        })
+      }
+    } catch (e) {
+      toast({
+        title: 'Error.',
+        description: "Wrong Credemtials.",
+        status: 'error',
+        duration: 4000,
+        isClosable: true,
+      })
+    }
   }
 
   return (

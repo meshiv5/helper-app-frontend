@@ -17,23 +17,46 @@ import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import styles from '../../styles/Signup/signup.module.css'
 import Link from 'next/link';
 import { BsGoogle } from 'react-icons/bs'
+import axios from 'axios'
+import { useToast } from '@chakra-ui/react'
 
 
 export default function SignupCard() {
     const [showPassword, setShowPassword] = useState(false);
     const [details, setDetails] = useState({
-        username: '',
+        name: '',
         email: '',
         password: ''
     })
+    const toast = useToast()
 
     const handleChange = (e) => {
         const { value, name } = e.target;
         setDetails({ ...details, [name]: value })
     }
 
-    const handleClick = () => {
-        console.log(details);
+    const handleClick = async () => {
+        try {
+            let res = await axios.post('http://localhost:3000/api/auth/signup', details)
+            if (res.data === 'Account created') {
+                toast({
+                    title: 'Account created.',
+                    description: "Signup Successful.",
+                    status: 'success',
+                    duration: 4000,
+                    isClosable: true,
+                })
+            }
+        } catch (e) {
+            toast({
+                title: 'Error.',
+                description: "User already exists.",
+                status: 'error',
+                duration: 4000,
+                isClosable: true,
+            })
+        }
+
     }
 
     return (
@@ -43,7 +66,7 @@ export default function SignupCard() {
             align={'center'}
             justify={'center'}
         >
-            <Stack className={styles.signup} spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+            <Stack className={styles.signup} spacing={8} mx={'auto'} width={[400, 600, 600]} py={12} px={6}>
                 <Stack align={'center'}>
                     <Heading fontSize={'4xl'} textAlign={'center'}>
                         Sign up
@@ -60,7 +83,7 @@ export default function SignupCard() {
                     <Stack spacing={4}>
                         <FormControl id="username" isRequired>
                             <FormLabel>Username</FormLabel>
-                            <Input name='username' onChange={handleChange} type="text" />
+                            <Input name='name' onChange={handleChange} type="text" />
                         </FormControl>
                         <FormControl id="email" isRequired>
                             <FormLabel>Email address</FormLabel>
