@@ -11,7 +11,7 @@ const HomePage = () => {
     
   return (
     <Box  >
-        <Box display={'flex'} justifyContent={'center'}>
+        <Box display={'flex'} justifyContent={'center'} mt={'15px'}>
         <Input type={'text'} border={'1px solid black'} placeholder={'...Search Item'}  w={'40%'} />
         <Select w={'auto'}>
         <option value='option1'>Low to High</option>
