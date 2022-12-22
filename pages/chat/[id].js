@@ -47,12 +47,12 @@ export default function SingleRoom() {
 
     getMessages(localStorage.getItem("helperApp"), roomID + sender?.id).then((data) => {
       data.json().then((result) => {
-        setChats((oldChats) => [...oldChats, ...result?.data?.messages]);
+        if (result && result.data) setChats((oldChats) => [...oldChats, ...result.data.messages]);
       });
     });
     getMessages(localStorage.getItem("helperApp"), sender?.id + roomID).then((data) => {
       data.json().then((result) => {
-        setChats((oldChats) => [...oldChats, ...result?.data?.messages]);
+        if (result && result.data) setChats((oldChats) => [...oldChats, ...result.data.messages]);
       });
     });
     socketInitializer();
