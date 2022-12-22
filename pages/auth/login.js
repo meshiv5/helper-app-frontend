@@ -16,6 +16,7 @@ import { useState } from 'react';
 import styles from '../../styles/Login/login.module.css'
 import axios from 'axios'
 import { useToast } from '@chakra-ui/react'
+import { useRouter } from 'next/router';
 
 
 export default function SimpleCard() {
@@ -24,6 +25,7 @@ export default function SimpleCard() {
     email: '',
     password: ''
   })
+  const router = useRouter()
   const toast = useToast()
 
   const handleChange = (e) => {
@@ -44,6 +46,7 @@ export default function SimpleCard() {
           isClosable: true,
         })
       }
+      router.push('/home')
     } catch (e) {
       toast({
         title: 'Error.',
