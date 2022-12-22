@@ -35,7 +35,7 @@ export default function SimpleCard() {
 
   const handleClick = async () => {
     try {
-      let res = await axios.post('http://localhost:3000/api/auth/login', details);
+      let res = await axios.post('http://localhost:8000/auth/login', details);
       if (res.data.message === 'Login success') {
         localStorage.setItem('helperApp', res.data.token)
         toast({
@@ -103,6 +103,11 @@ export default function SimpleCard() {
                 }}>
                 Sign in
               </Button>
+            </Stack>
+            <Stack pt={6}>
+              <Text align={'center'}>
+                Don't have an account? <Link style={{ color: '#1c7ed6' }} href='/auth/signup'>Signup</Link>
+              </Text>
             </Stack>
           </Stack>
         </Box>
