@@ -80,6 +80,6 @@ __
 
 
    - Chat Application
-<img src="https://i.imgur.com/VODu1TB.png" alt="chat" />
+<img src="https://i.imgur.com/Luk7HKd.jpg" alt="chat" />
 
 
