@@ -6,9 +6,9 @@ export default function Home() {
   const { isAuth } = useSelector((s) => s.auth);
   const router = useRouter();
   useEffect(() => {
-    if (!isAuth) {
-      router.push("/auth/login");
-    }
+    router.push("/HomePage/HomePage");
   }, [isAuth]);
-  return <>This is Home Page</>;
+  
+
+  return <></>;
 }
