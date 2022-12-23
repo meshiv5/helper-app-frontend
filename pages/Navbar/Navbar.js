@@ -15,6 +15,7 @@ import {
   useDisclosure,
   useColorModeValue,
   Stack,
+  LinkBox,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, AddIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import Link from "next/link";
@@ -51,8 +52,7 @@ export default function WithAction() {
     } else {
       setUserIdentity("Buyer");
       localStorage.setItem("mode", "Buyer");
-      router.push('/')
-
+      router.push("/");
     }
   }
   const handleLogout = () => {
@@ -61,14 +61,13 @@ export default function WithAction() {
   };
   useEffect(() => {
     if (!localStorage.getItem("mode")) localStorage.setItem("mode", "Buyer");
-    else
-      setUserIdentity(localStorage.getItem("mode"))
+    else setUserIdentity(localStorage.getItem("mode"));
   }, []);
   if (router.pathname === "/auth/login" || router.pathname === "/auth/signup" || router.pathname === "/ForgotPassword") {
     return <></>;
   }
   return (
-    <div style={{position:'sticky', top:'0px', zIndex:'1000'}}>
+    <div style={{ position: "sticky", top: "0px", zIndex: "1000" }}>
       <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <IconButton
@@ -79,12 +78,9 @@ export default function WithAction() {
             onClick={isOpen ? onClose : onOpen}
           />
           <HStack spacing={8} alignItems={"center"}>
-            <Box>Logo</Box>
-            <HStack as={"nav"} spacing={4} display={{ base: "none", md: "flex" }}>
-              {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
-              ))}
-            </HStack>
+            <Box>
+              <Link href={"/"}>Logo</Link>
+            </Box>
           </HStack>
           <Flex alignItems={"center"}>
             <Button variant={"solid"} colorScheme={"teal"} size={"sm"} mr={4} onClick={UserToggle}>
@@ -102,16 +98,15 @@ export default function WithAction() {
               <MenuList>
                 <MenuItem>{/* <MenuItem>from post to service</MenuItem> */}</MenuItem>
                 <MenuItem>Wallet</MenuItem>
-                <MenuItem>notification</MenuItem>
-                {useridentity == "Buyer" ? (
+                <MenuItem>Messages</MenuItem>
+                {useridentity == "Seller" && (
                   <div>
-                    <MenuItem>Service List and Contact</MenuItem>
-                    <MenuItem>Search and filter</MenuItem>
-                  </div>
-                ) : (
-                  <div>
-                    <Link href="/serviceform"><MenuItem w={"100%"}>Post Services</MenuItem></Link>
-                    <Link href='/Seller/SellerProducts'><MenuItem>Services</MenuItem></Link>
+                    <Link href="/serviceform">
+                      <MenuItem w={"100%"}>Post Services</MenuItem>
+                    </Link>
+                    <Link href="/Seller/SellerProducts">
+                      <MenuItem>Services</MenuItem>
+                    </Link>
                   </div>
                 )}
                 <MenuItem>Settings</MenuItem>

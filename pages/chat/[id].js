@@ -37,10 +37,13 @@ export default function SingleRoom() {
         .json()
         .then((res) => {
           console.log("my details :- " + JSON.stringify(sender));
-          if (res.status == false) router.push("/");
-          else setReceiver({ ...res.data });
+          if (res.status == false) {
+            alert("User Not Found ! Redirecting To Homepage");
+            router.push("/");
+          } else setReceiver({ ...res.data });
         })
         .catch((err) => {
+          alert("Some Error Occured With Network ! Redirecting To Homepage");
           router.push("/");
         });
     });
@@ -74,7 +77,7 @@ export default function SingleRoom() {
 }
 
 function getOtherUserData(token, id) {
-  return fetch(`${process.env.server}/getOtherData/${id}`, {
+  return fetch(`${process.env.server}getOtherData/${id}`, {
     method: "GET",
     headers: {
       authorization: token,
@@ -83,7 +86,7 @@ function getOtherUserData(token, id) {
 }
 
 function getMessages(token, roomID) {
-  return fetch(`${process.env.server}/getMessages/${roomID}`, {
+  return fetch(`${process.env.server}getMessages/${roomID}`, {
     method: "GET",
     headers: {
       authorization: token,

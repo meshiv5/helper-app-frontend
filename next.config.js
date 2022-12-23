@@ -7,8 +7,8 @@ const nextConfig = {
     secret: "785c1f49324d6a415490",
     cluster: "ap2",
     access_token_secret: "FkMKR512PxT%JiV!o8U%",
-    server: "https://rectangular-petal-snowdrop.glitch.me/",
-    // server: "http://localhost:8000",
+    // server: "https://rectangular-petal-snowdrop.glitch.me/",
+    server: "http://localhost:8000/",
   },
 };
 
