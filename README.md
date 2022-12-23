@@ -53,31 +53,31 @@ the services.
  ## Glipms of project
 __
 
-   - ###Homepage 
+   - Homepage 
 <img src="https://i.imgur.com/J4NKqlh.png" alt="homepage" />
 
 
-   - ###Login 
+   - Login 
 <img src="https://i.imgur.com/iSm1buH.png" alt="login" />
 
 
 
-   - ###Sign up 
+   - Sign up 
 <img src="https://i.imgur.com/1imxoHn.png" alt="singup1" />
 
 
 
-   - ###Sellers data
+   - Sellers data
 <img src="https://i.imgur.com/S9vddUS.png" alt="allData" />
 
 
 
-   - ###Post Services Form
+   - Post Services Form
 <img src="https://i.imgur.com/VODu1TB.png" alt="ServicesForm" />
 
 
 
-   - ###Chat Application
+   - Chat Application
 <img src="https://i.imgur.com/VODu1TB.png" alt="chat" />
 
 
