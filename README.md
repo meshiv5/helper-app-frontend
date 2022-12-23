@@ -1,34 +1,83 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Hackathon
+# HelperApp
 
-## Getting Started
+<p>
+This was a collaborative Hackathon at Masai School.
+Goal behind the Hackathon was to create a full stack application with next.js with all the major functionalities of this website, such as  Authentication, Landing Page , Dashboard, Seller, Buyer and many more.
+This project was built by a team of 4 developers in 48 Hours. 
+</p>
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+### Team
+___
+ <ul>
+        <li><a href="https://github.com/meshiv5">Shivendra Upadhyay (Team Lead)</a></li>
+        <li> <a href="https://github.com/Aman9723">Aman Singh Chauhan (Team Member)</a> </li>
+        <li><a href="https://github.com/subhankarroy612">Subhankar Roy (Team Member)</a></li>
+        <li><a href="https://github.com/Paratparshahi"> Pratik kumar (Team Member)</a></li>
+  </ul>
+  
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Information about HelperApp 
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+<p> HelperApp is an app which allows people to reach out to other people or services. Users can post services here and the interested person may buy 
+the services. 
+</p>
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## Tech Stack
+ - ### Frontend 
+   * HTML 5
+   * CSS 3
+   * JavaScript
+   * Next JS
+   * Chakra UI
+   * Redux JS 
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+ - ### Backend
 
-## Learn More
+   * Node JS
+   * Express JS
+   * Socket.IO
 
-To learn more about Next.js, take a look at the following resources:
+ - ### Database
+   * MongoDB
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+ - ### Other Tools and Libraries 
+   * NPM
+   * React Icons
+   * SMTP for sending email
+   * Git
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+ ## Glipms of project
+__
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+   - ###Homepage 
+<img src="https://i.imgur.com/J4NKqlh.png" alt="homepage" />
+
+
+   - ###Login 
+<img src="https://i.imgur.com/iSm1buH.png" alt="login" />
+
+
+
+   - ###Sign up 
+<img src="https://i.imgur.com/1imxoHn.png" alt="singup1" />
+
+
+
+   - ###Sellers data
+<img src="https://i.imgur.com/S9vddUS.png" alt="allData" />
+
+
+
+   - ###Post Services Form
+<img src="https://i.imgur.com/VODu1TB.png" alt="ServicesForm" />
+
+
+
+   - ###Chat Application
+<img src="https://i.imgur.com/VODu1TB.png" alt="chat" />
+
+
