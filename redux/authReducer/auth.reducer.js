@@ -1,4 +1,4 @@
-import { LOGOUT } from "./auth.actionTypes";
+import { EDITDETAILS, LOGOUT } from "./auth.actionTypes";
 
 let value;
 if (typeof window !== "undefined") {
@@ -8,6 +8,7 @@ if (typeof window !== "undefined") {
 const initState = {
   isAuth: value || false,
   token: "",
+  editPostDetails: {}
 };
 
 export const authReducer = (state = initState, action) => {
@@ -18,7 +19,11 @@ export const authReducer = (state = initState, action) => {
         ...state,
         isAuth: false,
       };
-
+    case EDITDETAILS:
+      return{
+        ...state,
+        editPostDetails: action.payload
+      }
     default:
       return state;
   }
