@@ -9,7 +9,7 @@ export function App({ Component, pageProps }) {
   const router = useRouter();
   const isAuth = useSelector((s) => s.auth.isAuth);
   useEffect(() => {
-    if (!isAuth && router.pathname !== '/auth/signup') router.push("/auth/login");
+    if (!isAuth && router.pathname !== '/auth/signup' && router.pathname !== '/ForgotPassword') router.push("/auth/login");
   }, [isAuth]);
   return (
     <ChakraProvider>

@@ -31,7 +31,7 @@ export default function SimpleCard() {
           isClosable: true,
         });
       }
-      router.push("/home");
+      router.push("/HomePage/HomePage");
     } catch (e) {
       toast({
         title: "Error.",
@@ -65,7 +65,7 @@ export default function SimpleCard() {
             <Stack spacing={10}>
               <Stack direction={{ base: "column", sm: "row" }} align={"start"} justify={"space-between"}>
                 <Checkbox>Remember me</Checkbox>
-                <Link color={"blue.400"}>Forgot password?</Link>
+                <Link href="/ForgotPassword" color={"blue.400"}>Forgot password?</Link>
               </Stack>
               <Button
                 onClick={handleClick}

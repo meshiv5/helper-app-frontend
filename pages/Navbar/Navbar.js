@@ -64,11 +64,11 @@ export default function WithAction() {
     else
       setUserIdentity(localStorage.getItem("mode"))
   }, []);
-  if (router.pathname === "/auth/login" || router.pathname === "/auth/signup") {
+  if (router.pathname === "/auth/login" || router.pathname === "/auth/signup" || router.pathname === "/ForgotPassword") {
     return <></>;
   }
   return (
-    <>
+    <div style={{position:'sticky', top:'0px'}}>
       <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <IconButton
@@ -130,6 +130,6 @@ export default function WithAction() {
           </Box>
         ) : null}
       </Box>
-    </>
+    </div>
   );
 }
