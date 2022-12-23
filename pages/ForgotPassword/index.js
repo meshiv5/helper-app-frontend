@@ -16,7 +16,7 @@ export default function ForgotPasswordForm() {
 
     const [email, setEmail] = useState('')
     const handleClick = async () => {
-        let res = await axios.post('http://localhost:8000/auth/forgot-password', { email });
+        let res = await axios.post(`${process.env.server}auth/forgot-password`, { email });
         console.log(res.data);
     }
 

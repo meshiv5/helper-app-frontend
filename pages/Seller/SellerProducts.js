@@ -6,6 +6,7 @@ import { HStack, Spacer, Toast, useToast, VStack } from '@chakra-ui/react'
 import { useDispatch } from 'react-redux'
 import { EDITDETAILS } from '../../redux/authReducer/auth.actionTypes';
 import { useRouter } from 'next/router';
+import styles from '../../styles/Seller/Seller.module.css'
 
 export default function SellerProducts() {
 
@@ -18,7 +19,7 @@ export default function SellerProducts() {
   const getSellerProducts = async () => {
 
     try {
-      let res = await axios.get('http://localhost:8000/service?role=seller', {
+      let res = await axios.get(`http://localhost:8000/service?role=seller`, {
         headers: {
           authorization: localStorage.getItem('helperApp')
         }
@@ -56,20 +57,21 @@ export default function SellerProducts() {
   }
 
   const handleEdit = (ele) => {
-    dispatch({type: EDITDETAILS, payload: ele})
+    dispatch({ type: EDITDETAILS, payload: ele })
     router.push('/EditPost')
   }
 
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '50px', margin: 'auto', marginTop: '5vh', width: '70%' }}>
+  return (<div className={styles.back}>
+
+    <div className={styles.parent} style={{minHeight:'100vh'}}>
       {
         data.map((ele, i) => {
-          return <div key={i} style={{ border: '1px solid black', borderRadius: '8px' }}>
+          return <div key={i} style={{ backgroundColor:'white' , borderRadius: '8px' }}>
             <HStack>
               <SingleProduct  {...ele} />
               <Spacer />
               <VStack style={{ padding: '20px' }}>
-                <AiFillEdit onClick={()=>handleEdit(ele)} />
+                <AiFillEdit onClick={() => handleEdit(ele)} />
                 <AiOutlineDelete onClick={() => handleDelete(ele._id)} />
               </VStack>
             </HStack>
@@ -77,6 +79,8 @@ export default function SellerProducts() {
         })
       }
     </div>
+
+  </div>
   )
 }
 

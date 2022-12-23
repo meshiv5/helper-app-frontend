@@ -57,7 +57,7 @@ export default function ContactFormWithSocialButtons() {
     try {
       let { id } = await decode(localStorage.getItem('helperApp'));
       setDetails({ ...details, user: id })
-      let res = await axios.post('http://localhost:8000/service', { ...details, user: id }, {
+      let res = await axios.post(`${process.env.server}service`, { ...details, user: id }, {
         headers: {
           authorization: localStorage.getItem('helperApp')
         }

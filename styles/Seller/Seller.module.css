@@ -1,0 +1,13 @@
+.parent{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.747), gray);
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    margin: auto;
+    padding-top: 5vh;
+    width: 70%;
+}
+
+.back{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.747), gray);
+}

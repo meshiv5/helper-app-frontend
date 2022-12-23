@@ -68,7 +68,7 @@ export default function WithAction() {
     return <></>;
   }
   return (
-    <div style={{position:'sticky', top:'0px'}}>
+    <div style={{position:'sticky', top:'0px', zIndex:'1000'}}>
       <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <IconButton
