@@ -38,7 +38,7 @@ export default function SignupCard() {
 
   const handleClick = async () => {
     try {
-      let res = await axios.post(`${process.env.server}/auth/signup`, details);
+      let res = await axios.post(`${process.env.server}auth/signup`, details);
       if (res.data === "Account created") {
         toast({
           title: "Account created.",
