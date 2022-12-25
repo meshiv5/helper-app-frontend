@@ -44,7 +44,7 @@ export default function EditForm() {
         category: editPostDetails.category,
         description: editPostDetails.description,
         pay: editPostDetails.pay,
-        user: editPostDetails.employer._id
+        user: editPostDetails.employer?._id
     })
 
     const router = useRouter()

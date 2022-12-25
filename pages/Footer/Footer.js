@@ -1,3 +1,7 @@
+export default function Footer() {
+  return <p>.</p>;
+}
+
 // import { ReactNode } from 'react';
 // import {
 //   Box,

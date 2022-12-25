@@ -23,12 +23,12 @@ const Singlecard = ({ elem }) => {
 
       <Stack>
         <CardBody>
-          <Heading size="md">{elem.category}</Heading>
+          <Heading size="md">{elem?.category}</Heading>
 
-          <Text py="2">{elem.description}</Text>
-          <Text>Task: {elem.task}</Text>
+          <Text py="2">{elem?.description}</Text>
+          <Text>Task: {elem?.task}</Text>
           <br />
-          <Text>Pay:${elem.pay}</Text>
+          <Text>Pay:${elem?.pay}</Text>
         </CardBody>
 
         <CardFooter>
@@ -36,7 +36,7 @@ const Singlecard = ({ elem }) => {
             variant="solid"
             colorScheme="blue"
             onClick={() => {
-              move(elem.employer);
+              move(elem?.employer);
             }}
           >
             Contact
