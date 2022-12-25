@@ -20,7 +20,7 @@ export default function SimpleCard() {
 
   const handleClick = async () => {
     try {
-      let res = await axios.post(`${process.env.server}/auth/login`, details);
+      let res = await axios.post(`${process.env.server}auth/login`, details);
       if (res.data.message === "Login success") {
         localStorage.setItem("helperApp", res.data.token);
         toast({
