@@ -12,7 +12,7 @@ const HomePage = () => {
   const [filtering, setfiltering] = useState("");
   const getSellerProducts = async () => {
     try {
-      let res = await axios.get(`http://localhost:8000/service?role=buyer&query=${search}&order=${order}&filter=${filtering}`, {
+      let res = await axios.get(`${process.env.server}service?role=buyer&query=${search}&order=${order}&filter=${filtering}`, {
         headers: {
           authorization: localStorage.getItem("helperApp"),
         },
